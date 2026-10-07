@@ -198,6 +198,15 @@ class WebsocketPolicyServer:
                 action = {
                     "action": action.cpu().numpy(),
                 }
+                embedding = getattr(self._policy, "_last_obs_embedding", None)
+                if embedding is None and hasattr(self._policy, "policy"):
+                    embedding = getattr(self._policy.policy, "_last_obs_embedding", None)
+                if embedding is not None:
+                    import numpy as np
+
+                    action["obs_embedding"] = (
+                        embedding.cpu().numpy() if hasattr(embedding, "cpu") else np.asarray(embedding)
+                    )
                 action["server_timing"] = {
                     "infer_ms": infer_time * 1000,
                 }

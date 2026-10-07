@@ -23,6 +23,10 @@ ROBOT_CAMERA_NAMES = {
         "right_wrist": "robot::robot:right_realsense_link:Camera:0",
         "head": "robot::robot:zed_link:Camera:0",
     },
+    "RealFranka": {
+        "wrist": "robot::robot:zed_wrist:Camera:0",
+        "external": "robot::robot:zed_external:Camera:0",
+    },
 }
 
 # Camera resolutions and corresponding intrinstics
@@ -82,6 +86,12 @@ ACTION_QPOS_INDICES = {
             "right_gripper": np.s_[22:23],
         }
     ),
+    "RealFranka": OrderedDict(
+        {
+            "arm": np.s_[0:7],
+            "gripper": np.s_[7:8],
+        }
+    ),
 }
 
 
@@ -115,6 +125,14 @@ PROPRIOCEPTION_INDICES = {
         {
             "joint_qpos": np.s_[0:23],
             "base_qvel": np.s_[23:26],
+        }
+    ),
+    "RealFranka": OrderedDict(
+        {
+            "arm_qpos": np.s_[0:7],
+            "gripper_qpos": np.s_[7:8],
+            "arm_qvel": np.s_[8:15],
+            "gripper_qvel": np.s_[15:16],
         }
     ),
     "R1Pro": OrderedDict(
@@ -196,6 +214,12 @@ PROPRIO_QPOS_INDICES = {
             "right_gripper": np.s_[26:28],
         }
     ),
+    "RealFranka": OrderedDict(
+        {
+            "arm": np.s_[0:7],
+            "gripper": np.s_[7:8],
+        }
+    ),
 }
 
 
@@ -241,6 +265,13 @@ JOINT_RANGE = {
             th.tensor([1.3090, 0.1745, 2.3562, 0.3491, 2.3562, 1.0472, 1.5708], dtype=th.float32),
         ),
         "right_gripper": (th.tensor([0.00], dtype=th.float32), th.tensor([0.05], dtype=th.float32)),
+    },
+    "RealFranka": {
+        "arm": (
+            th.tensor([-2.8973, -1.7628, -2.8973, -3.0718, -2.8973, -0.0175, -2.8973], dtype=th.float32),
+            th.tensor([2.8973, 1.7628, 2.8973, -0.0698, 2.8973, 3.7525, 2.8973], dtype=th.float32),
+        ),
+        "gripper": (th.tensor([-1.0], dtype=th.float32), th.tensor([1.0], dtype=th.float32)),
     },
 }
 
